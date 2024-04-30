@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 //Definimos la interfaz para representar un producto
-interface Product{
+export interface Product{
   id: number,
   name: string,
   price: number,

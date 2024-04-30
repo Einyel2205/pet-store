@@ -108,6 +108,105 @@
           }
         }
       }
+    },
+    "Dtos": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/dtos",
+      "sourceRoot": "projects/dtos/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/dtos",
+            "index": "projects/dtos/src/index.html",
+            "browser": "projects/dtos/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/dtos/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/dtos/src/favicon.ico",
+              "projects/dtos/src/assets"
+            ],
+            "styles": [
+              "projects/dtos/src/styles.scss"
+            ],
+            "scripts": [],
+            "server": "projects/dtos/src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "projects/dtos/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "Dtos:build:production"
+            },
+            "development": {
+              "buildTarget": "Dtos:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "Dtos:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/dtos/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/dtos/src/favicon.ico",
+              "projects/dtos/src/assets"
+            ],
+            "styles": [
+              "projects/dtos/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   },
   "cli": {

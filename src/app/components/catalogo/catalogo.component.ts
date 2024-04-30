@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { CartServicesService } from '../../services/cartservices.service'
+import { CartServicesService } from '../../services/cartservices.service';
+import { ApiService } from '../../services/api.service';
+import { Product } from '../../Dtos/Productos.dto';
 
 
 @Component({
@@ -9,24 +11,29 @@ import { CartServicesService } from '../../services/cartservices.service'
   styleUrl: './catalogo.component.scss'
 })
 
-export class CatalogoComponent {
+export class CatalogoComponent implements OnInit{
 
-  //*inyectar la dependencia del servicio en el constructor
-  constructor(private cartServicesService: CartServicesService){
+  public productos: Product[] = [];
 
+  constructor(
+    private apiService: ApiService,
+    private cartServicesService: CartServicesService
+  ){ }
+
+  ngOnInit(): void {
+    this.apiService.getProducts()
+      .subscribe((res: any) => {
+        this.productos = res;
+      }); 
   }
 
-  //*actualiza el metodo para añadir un producto al carrito mediante el servicio 
+
   addToCart(product:any){
-    //*Utilizacion del metodo addToCart del servicio cartServicesService
     this.cartServicesService.addProduct(product);
-    console.log(product);
-    
-    //*utilizacion del metodo getCart del cartServicesService para mostrar en el console.log los prodcutos añadidos
+    console.log(product);    
     console.log(this.cartServicesService.getProducts());
   }
 
-  //* actulizar el array de productos con el atributo cantidad en cada producto
   products = [
     {
       id:1,
@@ -121,6 +128,3 @@ export class CatalogoComponent {
   ] 
 
 }
-
-
-
