@@ -4,7 +4,6 @@ import { CartServicesService } from '../../services/cartservices.service';
 import { ApiService } from '../../services/api.service';
 import { Product } from '../../Dtos/Productos.dto';
 
-
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.component.html',
@@ -126,5 +125,4 @@ export class CatalogoComponent implements OnInit{
       cantidad: 0
     }, 
   ] 
-
 }
